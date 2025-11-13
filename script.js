@@ -41,11 +41,28 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Test API connection
+    testAPIConnection();
+
     // Focus username input
     setTimeout(() => {
         if (usernameInput) usernameInput.focus();
     }, 500);
 });
+
+// Test API connection
+async function testAPIConnection() {
+    try {
+        const response = await fetch(API_URL);
+        if (response.ok) {
+            console.log('✅ API Connected successfully');
+        } else {
+            console.warn('⚠️ API connection issue');
+        }
+    } catch (error) {
+        console.error('❌ API connection failed:', error);
+    }
+}
 
 // Toggle sidebar
 function toggleSidebar(show) {
@@ -125,7 +142,7 @@ async function createAccount() {
             body: JSON.stringify({ username, action: 'check' })
         });
 
-        if (!checkResponse.ok) throw new Error('Failed to check username');
+        if (!checkResponse.ok) throw new Error('Gagal memeriksa username');
         
         const checkResult = await checkResponse.json();
         
@@ -146,7 +163,7 @@ async function createAccount() {
 
         if (!createResponse.ok) {
             const errorData = await createResponse.json();
-            throw new Error(errorData.error || 'Failed to create account');
+            throw new Error(errorData.error || 'Gagal membuat akun');
         }
         
         const result = await createResponse.json();
@@ -160,7 +177,7 @@ async function createAccount() {
             
             showAlert('✅ Akun premium berhasil dibuat!', 'success');
         } else {
-            throw new Error(result.error || 'Failed to create account');
+            throw new Error(result.error || 'Gagal membuat akun');
         }
         
     } catch (error) {
