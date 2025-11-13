@@ -1,23 +1,18 @@
 import fetch from 'node-fetch';
 
-// ENTERPRISE CONFIGURATION - $1B VALUE
 const ENTERPRISE_CONFIG = {
-  // GitHub Enterprise Configuration
-  GITHUB_TOKEN: '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',
-  GITHUB_USERNAME: 'xcvisimilarity-latest',
-  REPO_NAME: 'xcvidatabase',
-  FILE_PATH: 'xcvifree.json',
-  
-  // Telegram Enterprise Bot
-  TELEGRAM_BOT_TOKEN: '8207201116:AAHyth3gbJInooesGUp3QoGvSlVVXYOy8Bg',
-  TELEGRAM_CHAT_ID: '6716435472',
-  
-  // Security Keys
-  ENCRYPTION_KEY: 'XCVI_ENTERPRISE_2024_SECURE',
+  GITHUB_TOKEN: process.env.GITHUB_TOKEN || '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',
+  GITHUB_USERNAME: process.env.GITHUB_USERNAME || 'xcvisimilarity-latest',
+  REPO_NAME: process.env.REPO_NAME || 'xcvidatabase',
+  FILE_PATH: process.env.FILE_PATH || 'xcvifree.json',
+  TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN || '8207201116:AAHyth3gbJInooesGUp3QoGvSlVVXYOy8Bg',
+  TELEGRAM_CHAT_ID: process.env.TELEGRAM_CHAT_ID || '6716435472',
+  ENCRYPTION_KEY: process.env.ENCRYPTION_KEY || 'XCVI_ENTERPRISE_2024_SECURE',
   API_VERSION: '2.0.0'
 };
 
-const RAW_URL = `https://raw.githubusercontent.com/${ENTERPRISE_CONFIG.GITHUB_USERNAME}/${ENTERPRISE_CONFIG.REPO_NAME}/refs/heads/main/${ENTERPRISE_CONFIG.FILE_PATH}`;
+// RAW_URL yang benar (hapus refs/heads)
+const RAW_URL = `https://raw.githubusercontent.com/${ENTERPRISE_CONFIG.GITHUB_USERNAME}/${ENTERPRISE_CONFIG.REPO_NAME}/main/${ENTERPRISE_CONFIG.FILE_PATH}`;
 const API_URL = `https://api.github.com/repos/${ENTERPRISE_CONFIG.GITHUB_USERNAME}/${ENTERPRISE_CONFIG.REPO_NAME}/contents/${ENTERPRISE_CONFIG.FILE_PATH}`;
 
 export default async function handler(req, res) {
@@ -105,31 +100,46 @@ export default async function handler(req, res) {
   }
 }
 
-// ENTERPRISE FUNCTIONS
 async function checkUsernameExists(username) {
   try {
-    console.log('🔍 Enterprise username check:', username);
-    
+    console.log('🔍 username check:', username);
+
     const response = await fetch(RAW_URL + '?t=' + Date.now(), {
-      headers: {
-        'User-Agent': 'XCVI-Enterprise-System/2.0.0'
-      }
+      headers: { 'User-Agent': 'XCVI-Enterprise-System/2.0.0' }
     });
-    
+
     if (!response.ok) {
-      throw new Error(`GitHub API responded with ${response.status}`);
+
+      const txt = await response.text().catch(() => '');
+      throw new Error(`GitHub raw fetch failed ${response.status}: ${txt.slice(0,200)}`);
     }
-    
-    const data = await response.json();
-    const exists = data.some(account => 
-      account.username.toLowerCase() === username.toLowerCase()
-    );
-    
+
+    const text = await response.text();
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch (e) {
+      console.warn('Raw response not valid JSON:', text.slice(0,200));
+      data = []; 
+    }
+
+
+    if (data && !Array.isArray(data) && typeof data === 'object') {
+      data = Object.values(data);
+    }
+    if (!Array.isArray(data)) data = [];
+
+    const exists = data.some(acc => {
+      const u = acc && (acc.username || acc.user || acc.name);
+      return typeof u === 'string' && u.toLowerCase() === username.toLowerCase();
+    });
+
     console.log('✅ Username check completed:', { username, exists });
     return exists;
-    
+
   } catch (error) {
     console.error('❌ Username check failed:', error);
+    
     throw new Error('Enterprise username verification service temporarily unavailable');
   }
 }
@@ -315,4 +325,4 @@ async function sendEnterpriseNotification(username, accountData) {
     console.error('❌ Enterprise notification failed:', error);
     return false;
   }
-                }
+}
