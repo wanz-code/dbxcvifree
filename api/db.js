@@ -1,3 +1,4 @@
+// api/db.js - Vercel Serverless Function
 const fetch = require('node-fetch');
 
 // Configuration - SIMPAN DI SINI
@@ -24,8 +25,8 @@ module.exports = async (req, res) => {
     return res.status(200).end();
   }
 
-  if (req.method === 'POST') {
-    try {
+  try {
+    if (req.method === 'POST') {
       const { username, action } = req.body;
 
       if (!username) {
@@ -33,32 +34,34 @@ module.exports = async (req, res) => {
       }
 
       if (action === 'check') {
-        // Check username availability
         const exists = await checkUsernameExists(username);
         return res.json({ exists });
       } else if (action === 'create') {
-        // Create new account
         const result = await createAccount(username);
         return res.json(result);
       } else {
         return res.status(400).json({ error: 'Invalid action' });
       }
-
-    } catch (error) {
-      console.error('API Error:', error);
-      return res.status(500).json({ 
-        error: 'Internal server error',
-        message: error.message 
-      });
     }
-  }
 
-  // GET method - return service status
-  return res.json({ 
-    status: 'active',
-    service: 'XCVI Database API',
-    timestamp: new Date().toISOString()
-  });
+    // GET method - return service status
+    return res.json({ 
+      status: 'active',
+      service: 'XCVI Database API',
+      timestamp: new Date().toISOString(),
+      endpoints: {
+        'POST /api/db': 'Create account or check username',
+        'GET /api/db': 'Service status'
+      }
+    });
+
+  } catch (error) {
+    console.error('API Error:', error);
+    return res.status(500).json({ 
+      error: 'Internal server error',
+      message: error.message 
+    });
+  }
 };
 
 // Helper functions
@@ -101,8 +104,8 @@ async function createAccount(username) {
     // Update GitHub file
     await updateGitHubFile(currentData);
 
-    // Send Telegram notification
-    await sendTelegramNotification(username, newAccount);
+    // Send Telegram notification (async, don't wait)
+    sendTelegramNotification(username, newAccount).catch(console.error);
 
     return {
       success: true,
@@ -142,7 +145,6 @@ async function updateGitHubFile(newData) {
   });
 
   if (!fileResponse.ok) {
-    const errorData = await fileResponse.json().catch(() => ({}));
     throw new Error(`GitHub API error: ${fileResponse.status}`);
   }
 
@@ -167,13 +169,12 @@ async function updateGitHubFile(newData) {
       sha: sha,
       committer: {
         name: 'XCVI Database Enterprise',
-        email: 'xcvispport@gmail.com'
+        email: 'enterprise@xcvidev.com'
       }
     })
   });
 
   if (!updateResponse.ok) {
-    const errorData = await updateResponse.json().catch(() => ({}));
     throw new Error(`GitHub update error: ${updateResponse.status}`);
   }
 
@@ -181,7 +182,7 @@ async function updateGitHubFile(newData) {
 }
 
 async function sendTelegramNotification(username, accountData) {
-  const message = `🎉 *AKUN PREMIUM BARU DIBUAT!*\n\n👤 *Username:* ${username}\n🔑 *Password:* ${accountData.password}\n⭐ *Role:* ${accountData.role}\n📅 *Expired:* ${new Date(accountData.expired).toLocaleDateString('id-ID')}\n⏰ *Waktu:* ${new Date().toLocaleString('id-ID')}\n\n🏢 *XCVI DATABASE* - Wanz Official`;
+  const message = `🎉 *AKUN PREMIUM BARU DIBUAT!*\n\n👤 *Username:* ${username}\n🔑 *Password:* ${accountData.password}\n⭐ *Role:* ${accountData.role}\n📅 *Expired:* ${new Date(accountData.expired).toLocaleDateString('id-ID')}\n⏰ *Waktu:* ${new Date().toLocaleString('id-ID')}\n\n🏢 *XCVI DATABASE ENTERPRISE* - Wanz Official`;
 
   try {
     const response = await fetch(`https://api.telegram.org/bot${CONFIG.TELEGRAM_BOT_TOKEN}/sendMessage`, {
@@ -196,13 +197,9 @@ async function sendTelegramNotification(username, accountData) {
       })
     });
 
-    if (!response.ok) {
-      throw new Error(`Telegram API error: ${response.status}`);
-    }
-
-    return true;
+    return response.ok;
   } catch (error) {
     console.error('Telegram notification failed:', error);
     return false;
   }
-}
+                }
