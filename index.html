@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="id" data-enterprise="true">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XCVI DATABASE</title>
+  <meta name="description" content="XCVI Database Premium System">
+  <meta name="theme-color" content="#0066ff">
+  
+  <!-- Enterprise Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  
+  <!-- Enterprise Styling -->
+  <style>
+    :root {
+      --primary: #0066ff;
+      --primary-dark: #0052d4;
+      --secondary: #7c3aed;
+      --accent: #00d4ff;
+      --gold: #ffd700;
+      --dark: #0f172a;
+      --darker: #020617;
+      --light: #f8fafc;
+      --gray: #64748b;
+      --success: #10b981;
+      --error: #ef4444;
+      --warning: #f59e0b;
+      
+      --gradient-primary: linear-gradient(135deg, var(--primary), var(--secondary));
+      --gradient-gold: linear-gradient(135deg, var(--gold), #ff6b00);
+      --gradient-accent: linear-gradient(135deg, var(--accent), var(--primary));
+      --gradient-dark: linear-gradient(135deg, var(--dark), var(--darker));
+      --gradient-enterprise: linear-gradient(135deg, #0066ff, #7c3aed, #00d4ff);
+      
+      --shadow-sm: 0 2px 8px rgba(0, 102, 255, 0.08);
+      --shadow-md: 0 8px 30px rgba(0, 102, 255, 0.12);
+      --shadow-lg: 0 20px 60px rgba(0, 102, 255, 0.15);
+      --shadow-xl: 0 25px 80px rgba(0, 102, 255, 0.2);
+      --shadow-gold: 0 0 30px rgba(255, 215, 0, 0.3);
+      
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-fast: all 0.15s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--gradient-dark);
+      color: var(--light);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Enterprise Background Effects */
+    .enterprise-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(0, 102, 255, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(124, 58, 237, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(0, 212, 255, 0.05) 0%, transparent 50%);
+    }
+
+    .particles-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    /* Enterprise Container */
+    .enterprise-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+      position: relative;
+    }
+
+    /* Enterprise Header */
+    .enterprise-header {
+      padding: 60px 0 30px;
+      text-align: center;
+      position: relative;
+    }
+
+    .enterprise-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .logo-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--gradient-enterprise);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-xl), var(--shadow-gold);
+      animation: enterprise-float 6s ease-in-out infinite;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo-icon::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+      animation: shine 3s infinite;
+    }
+
+    @keyframes enterprise-float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      33% { transform: translateY(-10px) rotate(1deg); }
+      66% { transform: translateY(-5px) rotate(-1deg); }
+    }
+
+    @keyframes shine {
+      0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+      100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+    }
+
+    .logo-icon i {
+      font-size: 36px;
+      color: white;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .enterprise-brand {
+      font-size: 48px;
+      font-weight: 800;
+      background: var(--gradient-enterprise);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .enterprise-tagline {
+      font-size: 16px;
+      color: var(--gold);
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 8px;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .enterprise-value {
+      font-size: 14px;
+      color: var(--accent);
+      font-weight: 500;
+      letter-spacing: 1px;
+      margin-top: 4px;
+    }
+
+    .enterprise-subtitle {
+      font-size: 20px;
+      color: var(--gray);
+      max-width: 700px;
+      margin: 0 auto;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    /* Enterprise Main Grid */
+    .enterprise-grid {
+      display: grid;
+      grid-template-columns: 1fr 450px;
+      gap: 50px;
+      padding: 50px 0;
+      align-items: start;
+    }
+
+    @media (max-width: 1200px) {
+      .enterprise-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+    }
+
+    /* Enterprise Cards */
+    .enterprise-card {
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-xl);
+      padding: 40px;
+      box-shadow: var(--shadow-xl);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .enterprise-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gradient-enterprise);
+    }
+
+    .enterprise-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-xl), 0 0 30px rgba(0, 102, 255, 0.2);
+    }
+
+    .card-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card-title i {
+      color: var(--accent);
+    }
+
+    .card-description {
+      color: var(--gray);
+      margin-bottom: 32px;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    /* Enterprise Form */
+    .form-group {
+      margin-bottom: 28px;
+    }
+
+    .form-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      font-weight: 600;
+      color: var(--light);
+      font-size: 14px;
+    }
+
+    .form-label span {
+      font-size: 12px;
+      color: var(--gray);
+      font-weight: 400;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .enterprise-input {
+      width: 100%;
+      padding: 18px 24px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-lg);
+      color: white;
+      font-size: 16px;
+      transition: var(--transition);
+      font-family: inherit;
+      font-weight: 500;
+    }
+
+    .enterprise-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.15);
+      transform: translateY(-1px);
+    }
+
+    .enterprise-input::placeholder {
+      color: var(--gray);
+      font-weight: 400;
+    }
+
+    /* Enterprise Buttons */
+    .enterprise-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 18px 36px;
+      border: none;
+      border-radius: var(--radius-lg);
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: inherit;
+      position: relative;
+      overflow: hidden;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .enterprise-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.6s;
+    }
+
+    .enterprise-btn:hover::before {
+      left: 100%;
+    }
+
+    .btn-primary {
+      background: var(--gradient-enterprise);
+      color: white;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-xl), 0 10px 30px rgba(0, 102, 255, 0.3);
+    }
+
+    .btn-primary:active {
+      transform: translateY(-1px);
+    }
+
+    .btn-block {
+      width: 100%;
+    }
+
+    .btn-loading {
+      pointer-events: none;
+      opacity: 0.9;
+    }
+
+    .btn-loading .btn-text {
+      opacity: 0;
+    }
+
+    .btn-loading::after {
+      content: "";
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      border: 3px solid transparent;
+      border-top: 3px solid white;
+      border-radius: 50%;
+      animation: enterprise-spin 1s linear infinite;
+    }
+
+    @keyframes enterprise-spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Enterprise Features Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 36px;
+    }
+
+    .enterprise-feature {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-lg);
+      transition: var(--transition);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .enterprise-feature:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-3px);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .feature-icon {
+      width: 56px;
+      height: 56px;
+      background: var(--gradient-enterprise);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: var(--shadow-md);
+    }
+
+    .feature-icon i {
+      font-size: 24px;
+      color: white;
+    }
+
+    .feature-text {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .feature-title {
+      font-weight: 700;
+      font-size: 16px;
+      margin-bottom: 6px;
+      color: white;
+    }
+
+    .feature-desc {
+      font-size: 13px;
+      color: var(--gray);
+      line-height: 1.4;
+    }
+
+    /* Enterprise Stats */
+    .enterprise-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .enterprise-stat {
+      text-align: center;
+      padding: 24px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: var(--transition);
+    }
+
+    .enterprise-stat:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .stat-number {
+      font-size: 42px;
+      font-weight: 800;
+      background: var(--gradient-enterprise);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--gray);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-weight: 600;
+    }
+
+    /* Enterprise Modal */
+    .enterprise-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(2, 6, 23, 0.9);
+      backdrop-filter: blur(15px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      z-index: 10000;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+    }
+
+    .enterprise-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background: var(--dark);
+      border-radius: var(--radius-xl);
+      padding: 40px;
+      max-width: 600px;
+      width: 100%;
+      box-shadow: var(--shadow-xl);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transform: scale(0.9) translateY(20px);
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .enterprise-modal.active .modal-content {
+      transform: scale(1) translateY(0);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: var(--gray);
+      font-size: 24px;
+      cursor: pointer;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .modal-close:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      transform: rotate(90deg);
+    }
+
+    .enterprise-account-info {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin: 24px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--light);
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    /* Enterprise Sidebar */
+    .enterprise-sidebar {
+      position: fixed;
+      top: 0;
+      right: -480px;
+      width: 420px;
+      height: 100%;
+      background: var(--dark);
+      border-left: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: var(--shadow-xl);
+      transition: var(--transition);
+      z-index: 1000;
+      padding: 40px;
+      overflow-y: auto;
+    }
+
+    .enterprise-sidebar.active {
+      right: 0;
+    }
+
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 36px;
+    }
+
+    .sidebar-title {
+      font-size: 24px;
+      font-weight: 700;
+      background: var(--gradient-enterprise);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .sidebar-close {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: var(--gray);
+      font-size: 24px;
+      cursor: pointer;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .sidebar-close:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      transform: rotate(90deg);
+    }
+
+    .sidebar-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px;
+      color: var(--light);
+      text-decoration: none;
+      border-radius: var(--radius-lg);
+      transition: var(--transition);
+      font-weight: 500;
+    }
+
+    .sidebar-link:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--accent);
+      transform: translateX(5px);
+    }
+
+    .sidebar-link i {
+      width: 20px;
+      text-align: center;
+      font-size: 18px;
+    }
+
+    /* Enterprise Alert */
+    .enterprise-alert {
+      position: fixed;
+      top: 40px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-30px);
+      padding: 18px 28px;
+      border-radius: var(--radius-lg);
+      color: white;
+      font-weight: 600;
+      box-shadow: var(--shadow-lg);
+      z-index: 10000;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+      max-width: 90%;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .enterprise-alert.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .enterprise-alert.success {
+      background: linear-gradient(135deg, var(--success), #059669);
+    }
+
+    .enterprise-alert.error {
+      background: linear-gradient(135deg, var(--error), #dc2626);
+    }
+
+    .enterprise-alert.warning {
+      background: linear-gradient(135deg, var(--warning), #d97706);
+    }
+
+    .enterprise-alert.info {
+      background: var(--gradient-enterprise);
+    }
+
+    /* Enterprise Footer */
+    .enterprise-footer {
+      padding: 60px 0 40px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: 80px;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .footer-text {
+      font-size: 14px;
+      color: var(--gray);
+      font-weight: 500;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-link {
+      color: var(--gray);
+      text-decoration: none;
+      transition: var(--transition);
+      font-weight: 500;
+    }
+
+    .footer-link:hover {
+      color: var(--accent);
+    }
+
+    /* Enterprise Responsive */
+    @media (max-width: 1024px) {
+      .enterprise-brand {
+        font-size: 40px;
+      }
+      
+      .enterprise-grid {
+        gap: 30px;
+      }
+      
+      .enterprise-card {
+        padding: 32px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .enterprise-header {
+        padding: 40px 0 20px;
+      }
+      
+      .enterprise-brand {
+        font-size: 36px;
+      }
+      
+      .enterprise-logo {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .logo-text {
+        align-items: center;
+        text-align: center;
+      }
+      
+      .enterprise-card {
+        padding: 24px;
+      }
+      
+      .enterprise-stats {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      
+      .enterprise-sidebar {
+        width: 100%;
+        right: -100%;
+      }
+      
+      .footer-content {
+        flex-direction: column;
+        gap: 24px;
+        text-align: center;
+      }
+      
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .enterprise-container {
+        padding: 0 15px;
+      }
+      
+      .enterprise-brand {
+        font-size: 32px;
+      }
+      
+      .enterprise-card {
+        padding: 20px;
+      }
+      
+      .enterprise-btn {
+        padding: 16px 28px;
+        font-size: 14px;
+      }
+      
+      .enterprise-input {
+        padding: 16px 20px;
+      }
+      
+      .modal-content {
+        padding: 24px;
+      }
+    }
+
+    /* Enterprise Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-fade-in-up {
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    /* Enterprise Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--gradient-enterprise);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--gradient-primary);
+    }
+  </style>
+</head>
+<body>
+  <!-- Enterprise Background -->
+  <div class="enterprise-bg"></div>
+  <div class="particles-container" id="particles-js"></div>
+
+  <div class="enterprise-container">
+    <!-- Enterprise Header -->
+    <header class="enterprise-header animate-fade-in-up">
+      <div class="enterprise-logo">
+        <div class="logo-icon">
+          <i class="fas fa-database"></i>
+        </div>
+        <div class="logo-text">
+          <h1 class="enterprise-brand">XCVI DATABASE</h1>
+          <div class="enterprise-tagline">PREMIUM SYSTEM</div>
+          <div class="enterprise-value"></div>
+        </div>
+      </div>
+      <p class="enterprise-subtitle">
+        grade premium account system with military-grade encryption, 
+        real-time analytics, and 99.9% uptime guarantee
+      </p>
+    </header>
+
+    <!-- Enterprise Main Grid -->
+    <div class="enterprise-grid">
+      <!-- Left Column - Account Creation -->
+      <div class="animate-fade-in-up" style="animation-delay: 0.1s">
+        <div class="enterprise-card">
+          <h2 class="card-title">
+            <i class="fas fa-rocket"></i>
+            Create Account
+          </h2>
+          <p class="card-description">
+            Create your premium account with full access to all XCVI Database features. 
+            grade security and instant activation.
+          </p>
+
+          <div class="form-group">
+            <label class="form-label">
+              Username
+              <span>3-30 characters)</span>
+            </label>
+            <div class="input-wrapper">
+              <input 
+                type="text" 
+                id="usernameInput" 
+                class="enterprise-input" 
+                placeholder="Enter your enterprise username"
+                maxlength="30"
+                autocomplete="off"
+                autocapitalize="off"
+                autocorrect="off"
+                spellcheck="false"
+              >
+            </div>
+          </div>
+
+          <button id="createAccountBtn" class="enterprise-btn btn-primary btn-block">
+            <span class="btn-text">
+              <i class="fas fa-plus-circle"></i>
+              CREATE ACCOUNT
+            </span>
+          </button>
+
+          <!-- Enterprise Features -->
+          <div class="features-grid">
+            <div class="enterprise-feature">
+              <div class="feature-icon">
+                <i class="fas fa-shield-alt"></i>
+              </div>
+              <div class="feature-text">
+                <div class="feature-title">Military-Grade Security</div>
+                <div class="feature-desc">AES-256 encryption security protocols</div>
+              </div>
+            </div>
+            <div class="enterprise-feature">
+              <div class="feature-icon">
+                <i class="fas fa-bolt"></i>
+              </div>
+              <div class="feature-text">
+                <div class="feature-title">Instant Activation</div>
+                <div class="feature-desc">Account active in under 30 seconds</div>
+              </div>
+            </div>
+            <div class="enterprise-feature">
+              <div class="feature-icon">
+                <i class="fas fa-infinity"></i>
+              </div>
+              <div class="feature-text">
+                <div class="feature-title">Full Access</div>
+                <div class="feature-desc">All premium features unlocked</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Enterprise Stats -->
+        <div class="enterprise-stats">
+          <div class="enterprise-stat">
+            <div class="stat-number" id="totalUsers">15,842</div>
+            <div class="stat-label">Users</div>
+          </div>
+          <div class="enterprise-stat">
+            <div class="stat-number" id="successRate">99.8%</div>
+            <div class="stat-label">Success Rate</div>
+          </div>
+          <div class="enterprise-stat">
+            <div class="stat-number" id="uptime">99.9%</div>
+            <div class="stat-label">System Uptime</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column - Features -->
+      <div class="animate-fade-in-up" style="animation-delay: 0.2s">
+        <div class="enterprise-card">
+          <h2 class="card-title">
+            <i class="fas fa-crown"></i>
+            Features
+          </h2>
+          <p class="card-description">
+            Access the complete suite of enterprise-grade features designed for maximum performance and security.
+          </p>
+
+          <div class="features-grid">
+            <div class="enterprise-feature">
+              <div class="feature-icon">
+                <i class="fas fa-server"></i>
+              </div>
+              <div class="feature-text">
+                <div class="feature-title">Cloud Infrastructure</div>
+                <div class="feature-desc">Global CDN & unlimited storage</div>
+              </div>
+            </div>
+            <div class="enterprise-feature">
+              <div class="feature-icon">
+                <i class="fas fa-sync"></i>
+              </div>
+              <div class="feature-text">
+                <div class="feature-title">Real-time Backup</div>
+                <div class="feature-desc">Automated backup every 5 minutes</div>
+              </div>
+            </div>
+            <div class="enterprise-feature">
+              <div class="feature-icon">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <div class="feature-text">
+                <div class="feature-title">Advanced Analytics</div>
+                <div class="feature-desc">Real-time performance metrics</div>
+              </div>
+            </div>
+            <div class="enterprise-feature">
+              <div class="feature-icon">
+                <i class="fas fa-lock"></i>
+              </div>
+              <div class="feature-text">
+                <div class="feature-title">Zero Trust Security</div>
+                <div class="feature-desc">Multi-factor authentication</div>
+              </div>
+            </div>
+            <div class="enterprise-feature">
+              <div class="feature-icon">
+                <i class="fas fa-bolt"></i>
+              </div>
+              <div class="feature-text">
+                <div class="feature-title">High Performance</div>
+                <div class="feature-desc">Response time under 50ms</div>
+              </div>
+            </div>
+            <div class="enterprise-feature">
+              <div class="feature-icon">
+                <i class="fas fa-headset"></i>
+              </div>
+              <div class="feature-text">
+                <div class="feature-title">24/7 Support</div>
+                <div class="feature-desc">grade support team</div>
+              </div>
+            </div>
+          </div>
+
+          <button id="menuBtn" class="enterprise-btn btn-block" style="margin-top: 32px; background: rgba(255,255,255,0.1);">
+            <i class="fas fa-bars"></i>
+            MENU
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enterprise Footer -->
+    <footer class="enterprise-footer animate-fade-in-up" style="animation-delay: 0.3s">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <i class="fas fa-database"></i>
+          <div class="footer-text">XCVI Database • Wanz Official</div>
+        </div>
+        <div class="footer-links">
+          <a href="https://t.me/wanz_xcvi" target="_blank" class="footer-link">Support</a>
+          <a href="#" class="footer-link">Security</a>
+          <a href="#" class="footer-link"> Terms</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Enterprise Account Modal -->
+  <div id="accountModal" class="enterprise-modal">
+    <div class="modal-content">
+      <button id="closeModal" class="modal-close">
+        <i class="fas fa-times"></i>
+      </button>
+      <h2 class="card-title">
+        <i class="fas fa-check-circle"></i>
+        Account Created!
+      </h2>
+      <p class="card-description">
+        Your premium account has been successfully created. 
+        Save this information securely - it cannot be recovered.
+      </p>
+      
+      <div id="accountInfo" class="enterprise-account-info"></div>
+      
+      <button id="copyBtn" class="enterprise-btn btn-primary btn-block">
+        <span class="btn-text">
+          <i class="fas fa-copy"></i>
+          COPY DATA
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Enterprise Sidebar -->
+  <aside id="sidebar" class="enterprise-sidebar">
+    <div class="sidebar-header">
+      <h3 class="sidebar-title"> Menu</h3>
+      <button id="closeSidebar" class="sidebar-close">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <a href="https://t.me/wanz_xcvi" target="_blank" class="sidebar-link">
+        <i class="fas fa-headset"></i>
+        <span> Support</span>
+      </a>
+      <a href="https://t.me/wanzxcvi" target="_blank" class="sidebar-link">
+        <i class="fas fa-broadcast-tower"></i>
+        <span>Updates Channel</span>
+      </a>
+      <a href="#" id="downloadApk" class="sidebar-link">
+        <i class="fas fa-download"></i>
+        <span>Download APK</span>
+      </a>
+      <a href="#" class="sidebar-link">
+        <i class="fas fa-code"></i>
+        <span>API Documentation</span>
+      </a>
+      <a href="#" class="sidebar-link">
+        <i class="fas fa-shield-alt"></i>
+        <span>Security Overview</span>
+      </a>
+      <a href="#" class="sidebar-link">
+        <i class="fas fa-star"></i>
+        <span> Features</span>
+      </a>
+      <a href="#" class="sidebar-link">
+        <i class="fas fa-chart-bar"></i>
+        <span>System Analytics</span>
+      </a>
+      <a href="#" class="sidebar-link">
+        <i class="fas fa-cog"></i>
+        <span> Settings</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Enterprise Alert -->
+  <div id="alert" class="enterprise-alert"></div>
+
+  <!-- Enterprise Scripts -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  
+  <script>
+    // Enterprise Configuration
+    const ENTERPRISE_CONFIG = {
+      API_URL: '/api/db',
+      SYSTEM_VALUE: 1000000000,
+      VERSION: '2.0.0'
+    };
+
+    // DOM Elements
+    const usernameInput = document.getElementById('usernameInput');
+    const createAccountBtn = document.getElementById('createAccountBtn');
+    const menuBtn = document.getElementById('menuBtn');
+    const closeSidebar = document.getElementById('closeSidebar');
+    const sidebar = document.getElementById('sidebar');
+    const accountModal = document.getElementById('accountModal');
+    const closeModal = document.getElementById('closeModal');
+    const accountInfo = document.getElementById('accountInfo');
+    const copyBtn = document.getElementById('copyBtn');
+    const downloadApkBtn = document.getElementById('downloadApk');
+
+    // Global State
+    let isCreatingAccount = false;
+
+    // Initialize Enterprise System
+    document.addEventListener('DOMContentLoaded', function() {
+      initializeEnterpriseSystem();
+      initializeParticles();
+      animateStats();
+    });
+
+    // Enterprise System Initialization
+    function initializeEnterpriseSystem() {
+      // Event Listeners
+      if (createAccountBtn) createAccountBtn.addEventListener('click', createEnterpriseAccount);
+      if (menuBtn) menuBtn.addEventListener('click', () => toggleSidebar(true));
+      if (closeSidebar) closeSidebar.addEventListener('click', () => toggleSidebar(false));
+      if (closeModal) closeModal.addEventListener('click', closeAccountModal);
+      if (copyBtn) copyBtn.addEventListener('click', copyEnterpriseData);
+      if (downloadApkBtn) downloadApkBtn.addEventListener('click', downloadEnterpriseAPK);
+      
+      // Modal close on outside click
+      if (accountModal) {
+        accountModal.addEventListener('click', function(e) {
+          if (e.target === accountModal) closeAccountModal();
+        });
+      }
+      
+      // Username input handling
+      if (usernameInput) {
+        usernameInput.addEventListener('input', function(e) {
+          e.target.value = e.target.value.replace(/[^a-zA-Z0-9_-]/g, '').substring(0, 30);
+        });
+
+        usernameInput.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter' && !isCreatingAccount) {
+            createEnterpriseAccount();
+          }
+        });
+
+        // Auto-focus
+        setTimeout(() => usernameInput.focus(), 1000);
+      }
+
+      // Test API connection
+      testEnterpriseAPI();
+    }
+
+    // Initialize Particles Background
+    function initializeParticles() {
+      particlesJS('particles-js', {
+        particles: {
+          number: { value: 100, density: { enable: true, value_area: 1000 } },
+          color: { value: "#0066ff" },
+          shape: { type: "circle" },
+          opacity: { value: 0.4, random: true },
+          size: { value: 4, random: true },
+          line_linked: {
+            enable: true,
+            distance: 200,
+            color: "#0066ff",
+            opacity: 0.1,
+            width: 1
+          },
+          move: {
+            enable: true,
+            speed: 1.5,
+            direction: "none",
+            random: true,
+            straight: false,
+            out_mode: "out",
+            bounce: false
+          }
+        },
+        interactivity: {
+          detect_on: "canvas",
+          events: {
+            onhover: { enable: true, mode: "repulse" },
+            onclick: { enable: true, mode: "push" },
+            resize: true
+          }
+        }
+      });
+    }
+
+    // Animate Enterprise Stats
+    function animateStats() {
+      const stats = [
+        { element: 'totalUsers', target: 15842 },
+        { element: 'successRate', target: 99.8 },
+        { element: 'uptime', target: 99.9 }
+      ];
+
+      stats.forEach(stat => {
+        const element = document.getElementById(stat.element);
+        if (element) {
+          let current = 0;
+          const increment = stat.target / 40;
+          const timer = setInterval(() => {
+            current += increment;
+            if (current >= stat.target) {
+              current = stat.target;
+              clearInterval(timer);
+            }
+            element.textContent = stat.element === 'totalUsers' 
+              ? Math.floor(current).toLocaleString()
+              : current.toFixed(1) + '%';
+          }, 50);
+        }
+      });
+    }
+
+    // Test Enterprise API Connection
+    async function testEnterpriseAPI() {
+      try {
+        const response = await fetch(ENTERPRISE_CONFIG.API_URL);
+        if (response.ok) {
+          console.log('✅ Enterprise API Connected - $1B System Ready');
+        }
+      } catch (error) {
+        console.warn('⚠️ Enterprise API Connection Test Failed');
+      }
+    }
+
+    // Toggle Enterprise Sidebar
+    function toggleSidebar(show) {
+      if (!sidebar) return;
+      
+      if (show) {
+        sidebar.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      } else {
+        sidebar.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    // Close Enterprise Account Modal
+    function closeAccountModal() {
+      if (!accountModal) return;
+      
+      accountModal.classList.remove('active');
+      if (usernameInput) {
+        usernameInput.value = '';
+        setTimeout(() => usernameInput.focus(), 400);
+      }
+    }
+
+    // Set Enterprise Loading State
+    function setEnterpriseLoading(loading) {
+      if (!createAccountBtn) return;
+      
+      const btnText = createAccountBtn.querySelector('.btn-text');
+      
+      if (loading) {
+        createAccountBtn.classList.add('btn-loading');
+        createAccountBtn.disabled = true;
+        if (btnText) btnText.textContent = 'CREATING ACCOUNT...';
+        isCreatingAccount = true;
+      } else {
+        createAccountBtn.classList.remove('btn-loading');
+        createAccountBtn.disabled = false;
+        if (btnText) btnText.textContent = 'CREATE ACCOUNT';
+        isCreatingAccount = false;
+      }
+    }
+
+    // Validate Enterprise Username
+    function validateEnterpriseUsername(username) {
+      if (!username) return 'Enterprise username is required';
+      if (username.length < 3) return 'Username must be at least 3 characters';
+      if (username.length > 30) return 'Username cannot exceed 30 characters';
+      if (!/^[a-zA-Z0-9_-]+$/.test(username)) return 'Only letters, numbers, underscore (_), and dash (-) are allowed';
+      return null;
+    }
+
+    // Create Enterprise Account
+    async function createEnterpriseAccount() {
+      if (isCreatingAccount) return;
+      
+      const username = usernameInput ? usernameInput.value.trim() : '';
+      
+      // Validate username
+      const validationError = validateEnterpriseUsername(username);
+      if (validationError) {
+        showEnterpriseAlert(validationError, 'error');
+        if (usernameInput) usernameInput.focus();
+        return;
+      }
+      
+      setEnterpriseLoading(true);
+      
+      try {
+        // Check username availability
+        showEnterpriseAlert('🔍 Checking enterprise username availability...', 'info', 2500);
+        
+        const checkResponse = await fetch(ENTERPRISE_CONFIG.API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, action: 'check' })
+        });
+
+        if (!checkResponse.ok) throw new Error('Enterprise username check failed');
+        
+        const checkResult = await checkResponse.json();
+        
+        if (checkResult.exists) {
+          showEnterpriseAlert('❌ Enterprise username already registered. Please choose another.', 'error');
+          if (usernameInput) usernameInput.focus();
+          return;
+        }
+
+        // Create enterprise account
+        showEnterpriseAlert('🚀 Creating premium account...', 'info', 3500);
+        
+        const createResponse = await fetch(ENTERPRISE_CONFIG.API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, action: 'create' })
+        });
+
+        if (!createResponse.ok) {
+          const errorData = await createResponse.json();
+          throw new Error(errorData.message || 'account creation failed');
+        }
+        
+        const result = await createResponse.json();
+        
+        if (result.success) {
+          // Display enterprise account information
+          const accountData = `ACCOUNT CREATED SUCCESSFULLY 🚀
+
+👤 USERNAME: ${username}
+🔑 PASSWORD: ${result.account.password}
+⭐ ACCOUNT TIER: Premium Enterprise Plus
+📅 CREATION DATE: ${new Date(result.account.createdAt).toLocaleString('id-ID')}
+⏰ EXPIRATION DATE: ${new Date(result.account.expired).toLocaleString('id-ID')}
+🔒 SECURITY LEVEL: Enterprise Grade
+📊 SYSTEM VERSION: 2.0.0
+💎 ACCOUNT STATUS: Active
+🏢 PLAN: Enterprise Plus
+
+💡 ENTERPRISE SECURITY NOTICE:
+• Save this information in a secure location
+• Data cannot be recovered if lost
+• Enable two-factor authentication
+• Contact enterprise support for assistance
+
+🔐 ENTERPRISE FEATURES:
+✓ Military-grade encryption
+✓ Real-time analytics
+✓ 24/7 enterprise support
+✓ 99.9% uptime guarantee
+✓ Unlimited cloud storage
+✓ Advanced security protocols
+
+🏢 XCVI DATABASE
+📞 ENTERPRISE SUPPORT: @wanz_xcvi
+⚡ PERFORMANCE: 99.9% Uptime Guarantee`;
+          
+          if (accountInfo) accountInfo.textContent = accountData;
+          if (accountModal) accountModal.classList.add('active');
+          
+          showEnterpriseAlert('✅ Enterprise premium account created successfully!', 'success');
+        } else {
+          throw new Error(result.error || 'account creation failed');
+        }
+        
+      } catch (error) {
+        console.error('Account Creation Error:', error);
+        showEnterpriseAlert('❌ ' + (error.message || 'Enterprise system error. Please try again.'), 'error');
+      } finally {
+        setEnterpriseLoading(false);
+      }
+    }
+
+    // Copy Enterprise Data
+    async function copyEnterpriseData() {
+      if (!accountInfo) return;
+      
+      const textToCopy = accountInfo.textContent;
+      const btnText = copyBtn.querySelector('.btn-text');
+      const originalText = btnText ? btnText.textContent : 'COPY ENTERPRISE DATA';
+      
+      try {
+        await navigator.clipboard.writeText(textToCopy);
+        
+        // Visual feedback
+        if (btnText) btnText.textContent = '✅ ENTERPRISE DATA COPIED!';
+        if (copyBtn) {
+          copyBtn.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+        }
+        
+        showEnterpriseAlert('✅ Account data copied to clipboard!', 'success', 2000);
+        
+        setTimeout(() => {
+          if (btnText) btnText.textContent = originalText;
+          if (copyBtn) copyBtn.style.background = '';
+        }, 2000);
+        
+      } catch (err) {
+        console.error('Enterprise Copy Failed:', err);
+        showEnterpriseAlert('❌ Failed to copy enterprise data. Please copy manually.', 'error');
+      }
+    }
+
+    // Download Enterprise APK
+    function downloadEnterpriseAPK(e) {
+      if (e) e.preventDefault();
+      
+      showEnterpriseAlert('⬇️ Starting enterprise APK download...', 'info', 2000);
+      
+      const link = document.createElement('a');
+      link.href = './xcvifree.apk';
+      link.download = 'XCVI_Enterprise_System.apk';
+      link.style.display = 'none';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      toggleSidebar(false);
+      
+      setTimeout(() => {
+        showEnterpriseAlert('✅ Enterprise APK download started!', 'success');
+      }, 1000);
+    }
+
+    // Show Enterprise Alert
+    function showEnterpriseAlert(message, type = 'info', duration = 4000) {
+      const alert = document.getElementById('alert');
+      if (alert) {
+        alert.textContent = message;
+        alert.className = `enterprise-alert ${type}`;
+        alert.offsetHeight; // Force reflow
+        alert.classList.add('show');
+        
+        setTimeout(() => {
+          alert.classList.remove('show');
+        }, duration);
+      }
+    }
+
+    // Global Access
+    window.toggleSidebar = toggleSidebar;
+    window.closeAccountModal = closeAccountModal;
+    window.createEnterpriseAccount = createEnterpriseAccount;
+    window.copyEnterpriseData = copyEnterpriseData;
+    window.downloadEnterpriseAPK = downloadEnterpriseAPK;
+    window.showEnterpriseAlert = showEnterpriseAlert;
+  </script>
+</body>
+</html>
